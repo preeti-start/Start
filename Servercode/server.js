@@ -14,95 +14,30 @@ var moment = require('moment');
 
 
 
-var greetings = require("./Functions.js");
+var methods= require("./Functions.js");
 
 /*
  * TypeError: object Bonjour has no
  * method 'sayHelloInEnglish'
  */
-greetings.sayHelloInEnglish();
+methods.sayHelloInEnglish();
 
 /*
  * TypeError: object Bonjour has no
  * method 'sayHelloInSpanish'
  */
-greetings.sayHelloInSpanish();
-
-
-var MongoClient = require('mongodb').MongoClient
-    , format = require('util').format;
-
-var db;
-
-
-MongoClient.connect('mongodb://127.0.0.1:27020/torerocorp_sb', function (err, db1)
-{
-    if (err) throw err;
-    db = db1;
-
-
-
-//    var count = 0;
-//    db.orders.find().forEach( function(d) { for(f in d) { count++; }
-//    console.log("total>>>>>"+count)});
-
-    return db;
-});
+methods.sayHelloInSpanish();
 
 
 
 
-function find(callback) {
-    var collection = db.collection('employees');
-
-    var count = 0;
-
-    collection.find().toArray( function(err,d) {
-        if (err) {
-            console.log(err);
-            callback(err);
-            return;
-        }
-
-        for(f in d) { count++; }
-        console.log("total>>>>>"+count)});
-    collection.find().toArray(function (err, result) {
-        if (err) {
-            console.log(err);
-            callback(err);
-            return;
-        }
-
-        console.log("returning"+result)
-        callback(null, JSON.stringify(result));
-    });
 
 
-}
 
-function insert(name, id) {
-    var collection = db.collection('record');
-    collection.insert({name:name, id:id}, function (err, docs) {
-        console.log("Error is:" + err);
 
-    })
-}
-function deletedata(name) {
-    var collection = db.collection('record');
-    collection.remove({name:name}, function (err, docs) {
-        console.log("Error is:" + err);
 
-    })
 
-}
 
-function update(name, id) {
-    var collection = db.collection('record');
-    collection.update({name:name}, {"$set":{id:id}}, function (err, docs) {
-        console.log("Error is:" + err);
-
-    })
-}
 
 
 // configuration ===========================================
@@ -141,7 +76,7 @@ app.get('/insert', function (req, res) {
     var name = req.param('name');
     var id = req.param('id');
     console.log("name " + name + " id " + id);
-    insert(name, id);
+    methods.insert(name, id);
 
     res.send("record successfully inserted")
 });
@@ -151,7 +86,7 @@ app.get('/delete', function (req, res) {
     var name = req.param('name');
 
     console.log("name " + name);
-    deletedata(name);
+    methods.deletedata(name);
 
     res.send("record successfully deleted")
 });
@@ -164,7 +99,7 @@ app.get('/update', function (req, res) {
 
 
     console.log("name " + name);
-    update(name, id);
+    methods.update(name, id);
 
     res.send("record successfully updated ")
 
@@ -185,7 +120,7 @@ app.get('/get', function (req, res) {
         });
     }
 
-    find(callback);
+    methods.find(callback);
 
 });
 
