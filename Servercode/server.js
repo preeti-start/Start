@@ -14,6 +14,19 @@ var moment = require('moment');
 
 
 
+var greetings = require("./Functions.js");
+
+/*
+ * TypeError: object Bonjour has no
+ * method 'sayHelloInEnglish'
+ */
+greetings.sayHelloInEnglish();
+
+/*
+ * TypeError: object Bonjour has no
+ * method 'sayHelloInSpanish'
+ */
+greetings.sayHelloInSpanish();
 
 
 var MongoClient = require('mongodb').MongoClient
@@ -97,7 +110,7 @@ function update(name, id) {
 // config files
 
 
-app.use(express.static(__dirname + '/public')); 	// set the static files location /public/img will be /img for users
+app.use(express.static(__dirname + './../Public')); 	// set the static files location /public/img will be /img for users
 // log every request to the console
 app.use(express.bodyParser()); 						// have the ability to pull information from html in POST
 app.use(express.methodOverride()); 					// have the ability to simulate DELETE and PUT
@@ -180,7 +193,7 @@ app.get('/get', function (req, res) {
 app.get('/', function (req, res) {
 
 
-    res.sendfile('./Public/index.html');
+    res.sendfile('./../Public/index.html');
 
 
 
